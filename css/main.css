@@ -183,5 +183,5 @@
 
 .ie6_0 .ui_boxyClose {
     background: 0;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='boxy_btn.png', sizingMethod='scale')
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='boxy_btn.png')
 }
