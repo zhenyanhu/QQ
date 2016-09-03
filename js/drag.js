@@ -21,7 +21,7 @@ function drag() {
     var oClose = document.getElementById('ui_boxyClose');
     oClose.onclick = function () {
         document.getElementById('loginPanel').style.display = 'none';
-    }
+    };
     // 切换状态
     var loginState = document.getElementById('loginState'),
         stateList = document.getElementById('loginStatePanel'),
@@ -37,16 +37,16 @@ function drag() {
             e.cancelBubble = true;
         }
         stateList.style.display = 'block';
-    }
+    };
 
     // 鼠标滑过、离开和点击状态列表时
     for (var i = 0, l = lis.length; i < l; i++) {
         lis[i].onmouseover = function () {
             this.style.background = '#567';
-        }
+        };
         lis[i].onmouseout = function () {
             this.style.background = '#FFF';
-        }
+        };
         lis[i].onclick = function (e) {
             e = e || window.event;
             if (e.stopPropagation) {
@@ -76,7 +76,7 @@ function fnDown(event) {
     document.onmousemove = function (event) {
         event = event || window.event;
         fnMove(event, disX, disY);
-    }
+    };
     // 释放鼠标
     document.onmouseup = function () {
         document.onmousemove = null;
