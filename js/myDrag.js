@@ -63,17 +63,24 @@ var eventUtil = {
  * @param parent
  * @returns {Array}
  */
-function getByClass(className, parent) {
-    var oParent = parent ? document.getElementById(parent) : document,
-        resultEles = [],
-        elements = oParent.getElementsByTagName('*');
-    for (var i in elements) {
-        if (elements[i].className == className) {
-            resultEles.push(elements[i]);
+var getEle = {
+    getById: function (id) {
+        return document.getElementById(id);
+    },
+    getByClass: function (className, parent) {
+        var oParent = parent ? document.getElementById(parent) : document,
+            resultEles = [],
+            elements = oParent.getElementsByTagName('*');
+
+        for (var i in elements) {
+            var cl = "" + elements[i].className;
+            if (elements[i].className == className || cl.indexOf(className) > -1) {
+                resultEles.push(elements[i]);
+            }
         }
+        return resultEles;
     }
-    return resultEles;
-}
+};
 
 /**
  *拖动实现三个步骤
@@ -81,11 +88,19 @@ function getByClass(className, parent) {
  * 鼠标按下触发的事件
  * 鼠标松开触发的事件
  */
-window.onload = drag;
+window.onload = function () {
+    drag();
+    close();
+    dropMenu();
+};
+
+/**
+ * 拖拽方法
+ */
 function drag() {
-    var dElement = getByClass("login_logo_webqq", "loginPanel")[0],
+    var dElement = getEle.getByClass("login_logo_webqq", "loginPanel")[0],
         body = document.documentElement || document.body,
-        loginBox = document.getElementById("loginPanel");
+        loginBox = getEle.getById("loginPanel");
 
     eventUtil.addHandler(dElement, "mousedown", function (e) {
         var dstX = e.clientX - loginBox.offsetLeft,
@@ -114,10 +129,52 @@ function drag() {
             loginBox.style.left = l + "px";
             loginBox.style.top = t + "px";
         };
-        eventUtil.addHandler(document, "mouseover", dragHandler);
+        eventUtil.addHandler(document, "mousemove", dragHandler);
         eventUtil.addHandler(document, "mouseup", function () {
-            eventUtil.removeHandler(document, "mouseover", dragHandler);
+            eventUtil.removeHandler(document, "mousemove", dragHandler);
             // eventUtil.removeHandler(document,"mouseup");
         })
     })
+}
+
+/**
+ * 关闭事件
+ */
+function close() {
+    var closeBtn = getEle.getById("ui_boxyClose");
+    closeBtn.onclick = function () {
+        getEle.getById("loginPanel").style.display = 'none'
+    };
+}
+
+/**
+ * 下拉菜单
+ */
+function dropMenu() {
+    getEle.getById("loginState").onclick = function (e) {
+        getEle.getById("loginStatePanel").style.display = "block";
+        eventUtil.stopBubble(eventUtil.getEvent(e));
+    };
+    var stateLi = getEle.getById("loginStatePanel").getElementsByTagName("li");
+    for (var i = 0; i < stateLi.length; i++) {
+        !function (i) {
+            stateLi[i].onmouseover = function () {
+                this.style.backgroundColor = "#ccc";
+            };
+            stateLi[i].onmouseleave = function () {
+                this.style.backgroundColor = "#fff";
+            };
+            stateLi[i].onclick = function (e) {
+                getEle.getById("loginStatePanel").style.display = "none";
+                eventUtil.stopBubble(eventUtil.getEvent(e));
+                //   console.log(stateLi[i].firstChild.nextSibling.classList[1]);
+                getEle.getByClass("login-state-show")[0].className = "login-state-show " + this.getElementsByTagName("div")[0].classList[1];
+                getEle.getById("login2qq_state_txt").innerHTML = getEle.getByClass("stateSelect_text", this.getAttribute("id"))[0].innerHTML;
+            };
+        }(i);
+    }
+    document.getElementsByTagName("*")[0].onclick = function () {
+        getEle.getById("loginStatePanel").style.display = "none";
+    }
+
 }

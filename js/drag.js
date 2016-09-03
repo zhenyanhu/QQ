@@ -41,6 +41,7 @@ function drag() {
 
     // 鼠标滑过、离开和点击状态列表时
     for (var i = 0, l = lis.length; i < l; i++) {
+
         lis[i].onmouseover = function () {
             this.style.background = '#567';
         };
