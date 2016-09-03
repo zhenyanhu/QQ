@@ -90,21 +90,24 @@ function drag() {
     eventUtil.addHandler(dElement, "mousedown", function (e) {
         var dstX = e.clientX - loginBox.offsetLeft,
             dstY = e.clientY - loginBox.offsetTop;
+        document.body.onselectstart = function () {
+            return false
+        };
         var dragHandler = function (e) {
             var l = e.clientX - dstX;
             var t = e.clientY - dstY;
-            var maxw = body.clientWidth - loginBox.clientWidth;
-            var maxh = body.clientHeight - loginBox.clientHeight;
+            var maxw = body.clientWidth - loginBox.clientWidth - 15;
+            var maxh = body.clientHeight - loginBox.clientHeight - 10;
             if (l < 0) {
                 l = 0;
             }
             else if (l > maxw) {
-                l = maxw - 10;
+                l = maxw;
             }
             if (t < 0) {
                 t = 10;
             }
-            if (t > maxh) {
+            else if (t > maxh) {
                 t = maxh;
             }
 
