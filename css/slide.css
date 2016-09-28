@@ -1,0 +1,33 @@
+.slide_box {
+    position: relative;
+    display: flex;
+    justify-content: center
+}
+
+.slide_box img {
+    cursor: pointer;
+}
+
+.slide_box .record {
+    position: absolute;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    left: 50%;
+    bottom: 5%;
+    margin-left: -100px;
+}
+
+.slide_box .record span {
+    background-color: #fff;
+    float: left;
+    width: 12px;
+    margin: 5px;
+    cursor: pointer;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.slide_box .record span:hover {
+    background-color: #ffc600;
+}
