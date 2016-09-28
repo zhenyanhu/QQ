@@ -88,7 +88,7 @@ function dropMenu() {
             stateLi[i].onclick = function (e) {
                 getEle.getById("loginStatePanel").style.display = "none";
                 eventUtil.stopBubble(eventUtil.getEvent(e));
-                //   console.log(stateLi[i].firstChild.nextSibling.classList[1]);
+                console.log(stateLi[i].firstChild.nextSibling.classList[1]);
                 getEle.getByClass("login-state-show")[0].className = "login-state-show " + this.getElementsByTagName("div")[0].classList[1];
                 getEle.getById("login2qq_state_txt").innerHTML = getEle.getByClass("stateSelect_text", this.getAttribute("id"))[0].innerHTML;
             };

@@ -12,7 +12,6 @@ function getByClass(clsName, parent) {
 }
 
 window.onload = drag;
-
 function drag() {
     var oTitle = getByClass('login_logo_webqq', 'loginPanel')[0];
     // 拖曳
